@@ -3,6 +3,8 @@ const dotenv = require('dotenv')
 const connectDB = require('./config/db')
 const cors = require('cors');
 const auth = require('./routes/auth')
+const reservations = require('./routes/reservations')
+const spaces = require('./routes/spaces')
 
 // Load env vars
 dotenv.config({ path: './.env' });
@@ -13,7 +15,10 @@ const app = express()
 app.use(cors());
 // Body parser
 app.use(express.json())
+// Route
 app.use('/api/v1/auth', auth)
+app.use('/api/v1/reservations', reservations)
+app.use('/api/v1/spaces', spaces)
 
 const PORT = process.env.PORT || 5000
 

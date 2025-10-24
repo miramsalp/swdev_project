@@ -36,10 +36,18 @@ const UserSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    balance: {
+        type: Number,
+        required: true,
+        default: 0
     }
 })
 
 UserSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) {
+        return next()
+    }
     const salt = await bcrypt.genSalt(10)
     this.password = await bcrypt.hash(this.password, salt)
 })
