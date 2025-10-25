@@ -4,7 +4,7 @@ function InputBar({ width, height = "36px", label, type = "text", onChange }) {
   return (
     <div>
       <div className="text-[14px] font-[500]">{label}</div>
-      <input type={type} className="border-1 border-gray-500 rounded-md px-2" style={{ width, height }} />
+      <input type={type} className="border-1 border-gray-500 rounded-md px-2" style={{ width, height }} onChange={onChange} />
     </div>
   );
 }
