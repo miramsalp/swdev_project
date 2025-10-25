@@ -4,9 +4,7 @@ const connectDB = require('./config/db')
 const cors = require('cors');
 const auth = require('./routes/auth')
 const reservations = require('./routes/reservations')
-
 const spaces = require('./routes/spaces')
-
 
 // Load env vars
 dotenv.config({ path: './.env' });
@@ -18,10 +16,7 @@ connectDB()
 const app = express()
 app.use(cors());
 
-app.post('/api/v1/stripe/webhook',
-  express.raw({ type: 'application/json' }),
-  stripeWebhook
-);
+app.post('/api/v1/stripe/webhook', express.raw({ type: 'application/json' }), stripeWebhook);
 
 // Body parser
 app.use(express.json())
