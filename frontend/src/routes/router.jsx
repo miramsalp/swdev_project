@@ -4,6 +4,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Landing from "../pages/home/Landing.jsx";
 import Register from "../pages/auth/Register.jsx";
 import Login from "../pages/auth/Login.jsx";
+import ViewReservation from "../pages/reservations/ViewReservation.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/view",
+    element: <ViewReservation />,
   },
 ]);
 
