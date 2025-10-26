@@ -1,4 +1,4 @@
-import api from '../../api';
+import api from '../api';
 // use axios base on frontend lecture
 // https://axios-http.com/docs/api_intro
 // https://blog.logrocket.com/axios-vs-fetch-2025/
