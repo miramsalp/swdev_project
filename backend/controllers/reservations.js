@@ -49,11 +49,11 @@ exports.getReservation = async (req, res, next) => {
             select: 'name description tel'
         })
 
-        if (!appointment) {
+        if (!reservation) {
             return res.status(404).json({success:false, message: `No reservation with the id of ${req.params.id}`})
         }
 
-        res.status(200).json({success:true, data: appointment})
+        res.status(200).json({success:true, data: reservation})
     } catch (error) {
         console.log(error);
         return res.status(500).json({success: false, message: "Cannot find Reservation"})
