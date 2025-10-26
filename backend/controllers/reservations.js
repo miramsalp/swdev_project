@@ -10,9 +10,12 @@ exports.getReservations = async (req, res, next) => {
     let query;
     console.log(req.user)
     if (req.user.role !== 'admin') {
-        query = Reservation.find({ user: req.user.id }).populate({
+        query = await Reservation.find({ user: req.user.id }).populate({
             path: 'space',
             select: 'name province tel'
+        }).populate({
+            path: 'user',
+            select: 'name' 
         })
     } else {
         if (req.params.spaceId) {
