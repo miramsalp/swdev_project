@@ -38,6 +38,7 @@ function ViewReservation() {
   return (
     <>
       <NavigationBar />
+      {/* <ConfirmPopup/> */}
       <div className={`flex mt-[60px] mx-[60px] text-[52px] text-black font-[700]`}>Co-working Space Reservation</div>
       <div className={`p-2 flex mt-[60px] mx-[60px] text-[18px] font-[500]`}>
         <div className="flex-1">Reservation date</div>
@@ -45,7 +46,6 @@ function ViewReservation() {
         <div className="flex-3">Co-working Space</div>
         <div className="flex-1 flex justify-center">Action</div>
       </div>
-      {/* <ReservationBox reservationDate={"abcd"} username={"Thanapat"} coworkingSpaceName={"BKK Creative Hub"} /> */}
       {displayReservations(reservations)}
     </>
   );
