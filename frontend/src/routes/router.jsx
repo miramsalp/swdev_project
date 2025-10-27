@@ -5,6 +5,7 @@ import Landing from "../pages/home/Landing.jsx";
 import Register from "../pages/auth/Register.jsx";
 import Login from "../pages/auth/Login.jsx";
 import ViewReservation from "../pages/reservations/ViewReservation.jsx";
+import CreateReservation from "../pages/reservations/CreateReservation.jsx";
 
 const router = createBrowserRouter([
   {
@@ -20,8 +21,12 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/view",
+    path: "/reservations/view",
     element: <ViewReservation />,
+  },
+  {
+    path: "/reservations/create",
+    element: <CreateReservation />,
   },
 ]);
 

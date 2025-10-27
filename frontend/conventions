@@ -1,0 +1,3 @@
+Naming conventions
+ใช้ `handle + Action` สำหรับ event handlers (onClick, onChange, onSubmit, etc.)
+e.g. handleViewReservation() {}
