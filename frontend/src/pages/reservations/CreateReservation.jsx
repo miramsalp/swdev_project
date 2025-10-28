@@ -1,11 +1,21 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import NavigationBar from "../../components/layout/NavigationBar";
 import { getSpaces } from "../../features/space";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+// https://www.npmjs.com/package/react-datepicker
+// https://reactdatepicker.com/
+import KeyboardButton from "../../components/common/KeyboardButton";
+import { addReservation } from "../../features/reservation";
 function CreateReservation() {
   const token = localStorage.getItem("token");
   const [coworkingSpaces, setCoworkingSpaces] = useState({});
   const [selectedCoworkingSpace, setSelectedCoworkingSpace] = useState("");
   const [selectedSpaceObject, setSelectedSpaceObject] = useState({});
+  // datepicker
+  const [startDate, setStartDate] = useState(new Date());
+  const navigate = useNavigate();
   /*
   selectSpaceObject
 {
@@ -23,6 +33,23 @@ function CreateReservation() {
   reservations: []
 };
    */
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // console.log(selectedCoworkingSpace);
+      await addReservation(token, startDate, selectedCoworkingSpace);
+      navigate("/reservations/view");
+    } catch (err) {
+      // alert(err)
+      if (err?.response?.data?.message?.includes("has already made 3 reservations")) {
+        alert("Cannot create reservation more than 3");
+      } else {
+        alert("An unexpected error occured")
+      }
+      // console.log(err)
+    }
+  };
+
   const displayCoworkingSpaceOption = () => {
     return coworkingSpaces?.data?.map((space) => {
       return (
@@ -34,7 +61,7 @@ function CreateReservation() {
   };
   useEffect(() => {
     const fetchCoworkingSpaces = async () => {
-      const result = await getSpaces(token);
+      const result = await getSpaces();
       setCoworkingSpaces(result);
 
       console.log(result);
@@ -80,6 +107,16 @@ function CreateReservation() {
             <></>
           )}
         </div>
+      </div>
+      <div className="flex mx-[60px]">
+        <DatePicker 
+          className="w-[500px] h-[50px] p-2 border-3 border-gray-400 focus:border-black rounded-md "
+          selected={startDate} 
+          onChange={(date) => setStartDate(date)} 
+        />
+      </div>
+      <div className="flex mt-[60px] mx-[60px]">
+        <KeyboardButton width={"200px"} height="50px" label={"Submit"} onClick={handleSubmit}/>
       </div>
     </>
   );

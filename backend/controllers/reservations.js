@@ -88,41 +88,9 @@ exports.addReservation = async (req, res, next) => {
         if (existedReservations.length >= 3 && req.user.role !== 'admin') {
             return res.status(400).json({success: false, message: `The user with ID ${req.user.id} has already made 3 reservations`})
         }
-        // Calculate cost
-        const { startTime, endTime } = req.body;
-        // time in HH:MM format 
-        // frontend option only have 00 in minutes
-        const [startHours, startMinutes] = startTime.split(':').map(Number);
-        const [endHours, endMinutes] = endTime.split(':').map(Number);
-
-        const [openHours, openMinutes] = space.openTime.split(':').map(Number);
-        const [closeHours, closeMinutes] = space.closeTime.split(':').map(Number);
-        // does not use this line
-        if (openHours <= closeHours) {
-            // day time
-            if (endHours < startHours) {
-                return res.status(400).json({ success: false, message: 'End hours have to be more than close hours' });
-            }
-            if (endHours - startHours < 1) {
-                return res.status(400).json({ success: false, message: 'Must reserve at least 1 hour' });
-            }
-            if (startHours < openHours || endHours > closeHours) {
-                return res.status(400).json({ success: false, message: 'Out of reservation range' });
-            }
-        } else {
-            // night time i.e 18.00-04.00
-            if (Math.abs(endHours - startHours) < 1) {
-                return res.status(400).json({ success: false, message: 'Must reserve at least 1 hour' });
-            }
-            if (startHours > closeHours && startHours < openHours) {
-                return res.status(400).json({ success: false, message: 'Start Hours out of reservation range' });
-            }
-            if (endHours > closeHours && endHours < openHours) {
-                return res.status(400).json({ success: false, message: 'End Hours out of reservation range' });
-            }
-        }
-        const durationInHours = Math.abs(endHours - startHours);
-        const calculatedPrice = durationInHours * space.hourlyRate;
+ 
+        // use 0.5 of hourlyRate as fee to reservation
+        const calculatedPrice = 0.5 * space.hourlyRate;
 
         if (user.balance < calculatedPrice) {
             return res.status(400).json({ success: false, message: 'Insufficient balance' });
