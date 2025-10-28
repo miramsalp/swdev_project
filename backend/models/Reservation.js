@@ -19,17 +19,7 @@ const ReservationSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    startTime: {
-        type: String,
-        required: true,
-        default: "12:00"
-    },
-    endTime: {
-        type: String,
-        required: true,
-        default: "13:00"
-    },
-    // dif endtime-starttime * hourly rate
+    // 0.5 * hourly rate
     totalPrice: { 
         type: Number, 
         required: true,

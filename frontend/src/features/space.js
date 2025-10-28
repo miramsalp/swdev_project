@@ -1,10 +1,6 @@
 import api from '../api';
 
-export const getSpaces = async (token) => {
-  const response = await api.get(`/spaces/`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export const getSpaces = async () => {
+  const response = await api.get('/spaces');
   return response.data;
 };
