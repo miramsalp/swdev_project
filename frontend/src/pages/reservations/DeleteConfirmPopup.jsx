@@ -1,6 +1,6 @@
 import KeyboardButton from "../../components/common/KeyboardButton";
 
-function DeleteConfirmPopup({ state, setState, topic, content, confirmHandler }) {
+function DeleteConfirmPopup({ state, setState, topic, content, handleConfirm }) {
   // #ffffffd0
 
   return (
@@ -18,7 +18,7 @@ function DeleteConfirmPopup({ state, setState, topic, content, confirmHandler })
                 label={"delete"}
                 onClick={() => {
                   setState(!state);
-                  confirmHandler();
+                  handleConfirm();
                 }}
               />
             </div>

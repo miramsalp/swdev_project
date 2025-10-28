@@ -9,7 +9,7 @@ function ReservationBox({ reservationDate, username, coworkingSpaceName, reserva
   const [deletePopup, setDeletePopup] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const token = localStorage.getItem("token");
-  const deleteButtonHandler = async () => {
+  const handleDeleteButton = async () => {
     const result = await deleteReservation(token, reservationId);
     setIsDelete(!isDelete);
     console.log(result);
@@ -24,7 +24,7 @@ function ReservationBox({ reservationDate, username, coworkingSpaceName, reserva
           setState={setDeletePopup}
           topic={"Do you want to decline your reserve?"}
           content={`${reservationDate}, ${username}, ${coworkingSpaceName}`}
-          confirmHandler={deleteButtonHandler}
+          handleConfirm={handleDeleteButton}
         />
       ) : (
         <></>
@@ -42,9 +42,7 @@ function ReservationBox({ reservationDate, username, coworkingSpaceName, reserva
           </div>
         </div>
       )}
-      <div className="fixed right-[60px] bottom-[60px] flex justify-center items-center h-16 w-32 bg-green-600 hover:bg-green-700 hover:scale-104 text-[18px] font-[500] rounded-full text-white select-none ">
-        Add new
-      </div>
+
     </>
   );
 }
