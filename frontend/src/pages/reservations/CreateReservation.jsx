@@ -44,7 +44,7 @@ function CreateReservation() {
       if (err?.response?.data?.message?.includes("has already made 3 reservations")) {
         alert("Cannot create reservation more than 3");
       } else {
-        alert("An unexpected error occured")
+        alert("An unexpected error occured");
       }
       // console.log(err)
     }
@@ -63,8 +63,6 @@ function CreateReservation() {
     const fetchCoworkingSpaces = async () => {
       const result = await getSpaces();
       setCoworkingSpaces(result);
-
-      console.log(result);
     };
     fetchCoworkingSpaces();
   }, []);
@@ -90,6 +88,16 @@ function CreateReservation() {
             <option value=""></option>
             {displayCoworkingSpaceOption()}
           </select>
+          <div className="flex mt-[20px]">
+            <DatePicker
+              className="w-[500px] h-[50px] p-2 border-3 border-gray-400 focus:border-black rounded-md "
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+            />
+          </div>
+          <div className="flex mt-[20px]">
+            <KeyboardButton width={"200px"} height="50px" label={"Submit"} onClick={handleSubmit} />
+          </div>
         </div>
         <div className={`flex-1 bg-white p-6 border-3 rounded-md ${selectedSpaceObject ? "h-full" : "h-30"}`}>
           {selectedSpaceObject ? (
@@ -107,16 +115,6 @@ function CreateReservation() {
             <></>
           )}
         </div>
-      </div>
-      <div className="flex mx-[60px]">
-        <DatePicker 
-          className="w-[500px] h-[50px] p-2 border-3 border-gray-400 focus:border-black rounded-md "
-          selected={startDate} 
-          onChange={(date) => setStartDate(date)} 
-        />
-      </div>
-      <div className="flex mt-[60px] mx-[60px]">
-        <KeyboardButton width={"200px"} height="50px" label={"Submit"} onClick={handleSubmit}/>
       </div>
     </>
   );

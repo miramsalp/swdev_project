@@ -6,6 +6,7 @@ import Register from "../pages/auth/Register.jsx";
 import Login from "../pages/auth/Login.jsx";
 import ViewReservation from "../pages/reservations/ViewReservation.jsx";
 import CreateReservation from "../pages/reservations/CreateReservation.jsx";
+import EditReservation from "../pages/reservations/EditReservation.jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/reservations/create",
     element: <CreateReservation />,
+  },
+  {
+    path: "/reservations/edit/:id",
+    element: <EditReservation />,
   },
 ]);
 
