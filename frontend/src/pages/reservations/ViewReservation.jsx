@@ -28,9 +28,9 @@ function ViewReservation() {
         {reservations?.data?.map((item) => {
           const isoDate = item.reservationDate;
           const onlyDate = isoDate.split("T")[0];
-          // console.log(onlyDate);
+          console.log(item);
           return (
-            <ReservationBox key={item._id} reservationDate={onlyDate} username={item.user.name} coworkingSpaceName={item.space.name} reservationId={item._id} />
+            <ReservationBox key={item._id} reservationDate={onlyDate} username={item.user.name} coworkingSpaceName={item.space.name} reservationId={item._id}/>
           );
         })}
       </>
