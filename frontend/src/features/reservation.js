@@ -8,6 +8,15 @@ export const getReservations = async (token) => {
   });
   return response.data;
 };
+
+export const getReservation = async (token, id) => {
+  const response = await api.get(`/reservations/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
 export const deleteReservation = async (token, id) => {
   const response = await api.delete(`/reservations/${id}`, {
     headers: {

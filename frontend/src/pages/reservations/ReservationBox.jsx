@@ -4,8 +4,10 @@ import { MdEdit } from "react-icons/md";
 import { deleteReservation } from "../../features/reservation";
 import DeleteConfirmPopup from "./DeleteConfirmPopup.jsx";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ReservationBox({ reservationDate, username, coworkingSpaceName, reservationId }) {
+  const navigate = useNavigate();
   const [deletePopup, setDeletePopup] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const token = localStorage.getItem("token");
@@ -15,7 +17,9 @@ function ReservationBox({ reservationDate, username, coworkingSpaceName, reserva
     console.log(result);
     return;
   };
-
+  const handleEditButton = () => {
+    navigate(`/reservations/edit/${reservationId}`);
+  }
   return (
     <>
       {deletePopup ? (
@@ -37,7 +41,7 @@ function ReservationBox({ reservationDate, username, coworkingSpaceName, reserva
           <div className="flex-2">{username}</div>
           <div className="flex-3">{coworkingSpaceName}</div>
           <div className="flex-1 flex justify-center gap-4">
-            <KeyboardButton width={"56px"} height={"56px"} label={<MdEdit size={24} />} />
+            <KeyboardButton width={"56px"} height={"56px"} label={<MdEdit size={24} onClick={handleEditButton}/>}  />
             <KeyboardButton width={"56px"} height={"56px"} label={<IoTrashBinSharp size={24} color="red" />} onClick={() => setDeletePopup(!deletePopup)} />
           </div>
         </div>
