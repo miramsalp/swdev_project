@@ -25,6 +25,17 @@ const ReservationSchema = new mongoose.Schema({
         required: true,
         default: 0
     },
+}, {
+    toJSON: {
+        virtuals: true
+    },
+    toObject: {
+        virtuals: true
+    }
+})
+
+ReservationSchema.virtual('isExpired').get(function() {
+    return new Date() > this.reservationDate
 })
 
 module.exports = mongoose.model('Reservation', ReservationSchema)
