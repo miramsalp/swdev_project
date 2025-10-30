@@ -28,7 +28,15 @@ function Login() {
       <div className={` ml-[60px] text-[32px] font-[700] text-gray-500`}>Please login to create reservation</div>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 ml-[60px]">
         <InputBar width={"600px"} label={"Email"} type="email" onChange={(e) => setEmail(e.target.value)} />
-        <InputBar width={"600px"} label={"Password"} type="password" onChange={(e) => setPassword(e.target.value)} />
+        <InputBar
+          width={"600px"}
+          label={"Password"}
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={(e) => {
+            if(e.key === "Enter") handleSubmit(e);
+          }}
+        />
         <KeyboardButton width={"200px"} height="50px" label={"Submit"} onClick={handleSubmit} />
         {error && <p className="text-red-500">{error}</p>}
       </form>
@@ -37,4 +45,3 @@ function Login() {
 }
 
 export default Login;
-

@@ -25,6 +25,16 @@ export const deleteReservation = async (token, id) => {
   });
   return response.data;
 };
+
+export const updateReservation = async (token, id, data) => {
+  const response = await api.put(`/reservations/${id}`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
 export const addReservation = async (token, userData, spaceId) => {
   const response = await api.post(`spaces/${spaceId}/reservations`, {
     reservationDate: userData

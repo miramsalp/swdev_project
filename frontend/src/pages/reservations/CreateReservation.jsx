@@ -14,7 +14,9 @@ function CreateReservation() {
   const [selectedCoworkingSpace, setSelectedCoworkingSpace] = useState("");
   const [selectedSpaceObject, setSelectedSpaceObject] = useState({});
   // datepicker
-  const [startDate, setStartDate] = useState(new Date());
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const [startDate, setStartDate] = useState(tomorrow);
   const navigate = useNavigate();
   /*
   selectSpaceObject
@@ -92,7 +94,7 @@ function CreateReservation() {
             <DatePicker
               className="w-[500px] h-[50px] p-2 border-3 border-gray-400 focus:border-black rounded-md "
               selected={startDate}
-              onChange={(date) => setStartDate(date)}
+              onChange={(date) => {if(date > new Date()) setStartDate(date)}}
             />
           </div>
           <div className="flex mt-[20px]">

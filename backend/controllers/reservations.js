@@ -49,7 +49,7 @@ exports.getReservation = async (req, res, next) => {
     try {
         const reservation = await Reservation.findById(req.params.id).populate({
             path: 'space',
-            select: 'name address district province postalcode tel'
+            select: 'name address district province postalcode tel openTime closeTime'
         })
 
         if (!reservation) {
@@ -82,9 +82,10 @@ exports.addReservation = async (req, res, next) => {
         req.body.user = req.user.id
         const user = await User.findById(req.user.id).session(session)
         // check for existed reservation
-        const existedReservations = await Reservation.find({ user: req.user.id }).session(session)
+        const existedReservations = await Reservation.find({ user: req.user.id, reservationDate: { $gt : new Date()} }).session(session)
 
         // If user not admin cant create exceed 3
+
         if (existedReservations.length >= 3 && req.user.role !== 'admin') {
             return res.status(400).json({success: false, message: `The user with ID ${req.user.id} has already made 3 reservations`})
         }
