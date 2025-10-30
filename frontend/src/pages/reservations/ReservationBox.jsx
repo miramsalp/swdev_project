@@ -19,7 +19,7 @@ function ReservationBox({ reservationDate, username, coworkingSpaceName, reserva
   };
   const handleEditButton = () => {
     navigate(`/reservations/edit/${reservationId}`);
-  }
+  };
   return (
     <>
       {deletePopup ? (
@@ -36,17 +36,25 @@ function ReservationBox({ reservationDate, username, coworkingSpaceName, reserva
       {isDelete ? (
         <></>
       ) : (
-        <div className={`p-2 flex mt-[6px] mx-[60px] h-20 items-center border-3 rounded-md hover:bg-gray-50 hover:scale-101 ${isExpired ? "bg-gray-200": ""}`}>
+        <div
+          className={`p-2 flex mt-[6px] mx-[60px] h-20 items-center border-3 rounded-md  hover:scale-101 ${isExpired ? "bg-pink-100" : "hover:bg-gray-100"}`}
+        >
           <div className="flex-1">{reservationDate}</div>
           <div className="flex-2">{username}</div>
           <div className="flex-3">{coworkingSpaceName}</div>
+          <div className="flex-1 text-red-600 font-[500]">{isExpired ? "expired" : ""}</div>
           <div className="flex-1 flex justify-center gap-4">
-            <KeyboardButton width={"56px"} height={"56px"} label={<MdEdit size={24} onClick={handleEditButton}/>}  />
-            <KeyboardButton width={"56px"} height={"56px"} label={<IoTrashBinSharp size={24} color="red" />} onClick={() => setDeletePopup(!deletePopup)} />
+            {isExpired ? (
+              <></>
+            ) : (
+              <>
+                <KeyboardButton width={"56px"} height={"56px"} label={<MdEdit size={24} onClick={handleEditButton} />} />
+                <KeyboardButton width={"56px"} height={"56px"} label={<IoTrashBinSharp size={24} color="red" />} onClick={() => setDeletePopup(!deletePopup)} />
+              </>
+            )}
           </div>
         </div>
       )}
-
     </>
   );
 }
