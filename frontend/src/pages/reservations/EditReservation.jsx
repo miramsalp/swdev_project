@@ -26,7 +26,8 @@ function EditReservation({}) {
     setHandleSuccessPopup(!HandleSuccessPopup);
     
   }
-  console.log(id);
+  // console.log(id);
+  // console.log("hehe", selectedSpaceObject)
   useEffect(() => {
     const fetchReservation = async () => {
       const result = await getReservation(token, id);

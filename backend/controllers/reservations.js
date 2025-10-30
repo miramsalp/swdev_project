@@ -49,7 +49,7 @@ exports.getReservation = async (req, res, next) => {
     try {
         const reservation = await Reservation.findById(req.params.id).populate({
             path: 'space',
-            select: 'name address district province postalcode tel'
+            select: 'name address district province postalcode tel openTime closeTime'
         })
 
         if (!reservation) {
