@@ -172,7 +172,7 @@ exports.deleteReservation = async (req, res, next) => {
             return res.status(401).json({success: false, message: `User ${req.user.id} is not authorized to delete this reservation`})
         }
 
-        await Reservation.deleteOne()
+        await reservation.deleteOne()
 
         res.status(200).json({
             success: true,
