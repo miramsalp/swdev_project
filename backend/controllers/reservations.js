@@ -23,11 +23,17 @@ exports.getReservations = async (req, res, next) => {
             query = Reservation.find({ space: req.params.spaceId }).populate({
                 path: 'space',
                 select: 'name province tel'
+            }).populate({
+                path: 'user',
+                select: 'name' 
             })
         } else {
             query = Reservation.find().populate({
                 path: 'space',
                 select: 'name province tel'
+            }).populate({
+                path: 'user',
+                select: 'name' 
             })
         }
     }

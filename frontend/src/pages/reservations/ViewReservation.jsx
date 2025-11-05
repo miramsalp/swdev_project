@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 function ViewReservation() {
   // const { user } = useAuth();
   const user = useUser();
-  console.log(user);
+  // console.log(user);
   const token = localStorage.getItem("token");
   const [reservations, setReservations] = useState();
   const navigate = useNavigate();
