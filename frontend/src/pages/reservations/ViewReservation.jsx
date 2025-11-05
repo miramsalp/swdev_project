@@ -18,6 +18,9 @@ function ViewReservation() {
     const sortedByDate = result.data.sort((a, b) => new Date(b.reservationDate) - new Date(a.reservationDate));
     setReservations(result);
   };
+  const handleCreatePayment = () => {
+    navigate('/payment');
+  }
   const addNewButton = () => {
     return (
       <div
@@ -43,7 +46,10 @@ function ViewReservation() {
             </div>
           </div>
           <div className="flex-1 flex justify-end items-center">
-            <div className="text-white font-[600] bg-pink-600 px-4 py-2 mr-2 rounded-4xl select-none hover:bg-pink-700 hover:scale-104 active:scale-100">
+            <div 
+              className="text-white font-[600] bg-pink-600 px-4 py-2 mr-2 rounded-4xl select-none hover:bg-pink-700 hover:scale-104 active:scale-100"
+              onClick={handleCreatePayment}  
+            >
               Top up
             </div>
           </div>

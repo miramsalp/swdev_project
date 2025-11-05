@@ -7,39 +7,47 @@ const User = require('../models/User');
 exports.createCheckoutSession = async (req, res, next) => {
     const { amount } = req.body;
     const user = await User.findById(req.user.id);
-
-    const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        line_items: [
-            {
-                price_data: {
-                    currency: 'thb',
-                    product_data: {
-                        name: 'Top-up balance',
+    try {
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [
+                {
+                    price_data: {
+                        currency: 'thb',
+                        product_data: {
+                            name: 'Top-up balance',
+                        },
+                        unit_amount: amount * 100,
                     },
-                    unit_amount: amount * 100,
+                    quantity: 1,
                 },
-                quantity: 1,
-            },
-        ],
-        mode: 'payment',
-        // this is dummy will design later or maybe redirect to home for both case -,.-
-        success_url: `${process.env.FRONTEND_URL}/success`,
-        cancel_url: `${process.env.FRONTEND_URL}/cancel`,
-        customer_email: user.email,
-        client_reference_id: req.user.id,
-    });
+            ],
+            mode: 'payment',
+            // this is dummy will design later or maybe redirect to home for both case -,.-
+            success_url: `${process.env.FRONTEND_URL}/reservations/view`,
+            cancel_url: `${process.env.FRONTEND_URL}/reservations/view`,
+            customer_email: user.email,
+            client_reference_id: req.user.id,
+        });
 
-    res.status(200).json({
-        success: true,
-        id: session.url,
-    });
+        res.status(200).json({
+            success: true,
+            url: session.url,
+        });
+    } catch (err) {
+        res.status(400).json({
+            success: false,
+            error: err
+        })
+    }
 };
 
 // @desc    Stripe webhook
 // @route   POST /api/v1/stripe/webhook
 // @access  Public
 exports.stripeWebhook = async (req, res, next) => {
+    // https://docs.stripe.com/webhooks
+    // for more information
     const sig = req.headers['stripe-signature'];
     let event;
 

@@ -48,7 +48,7 @@ function ReservationBox({ reservationDate, username, coworkingSpaceName, reserva
               <></>
             ) : (
               <>
-                <KeyboardButton width={"56px"} height={"56px"} label={<MdEdit size={24} onClick={handleEditButton} />} />
+                <KeyboardButton width={"56px"} height={"56px"} label={<MdEdit size={24} />} onClick={handleEditButton} />
                 <KeyboardButton width={"56px"} height={"56px"} label={<IoTrashBinSharp size={24} color="red" />} onClick={() => setDeletePopup(!deletePopup)} />
               </>
             )}
