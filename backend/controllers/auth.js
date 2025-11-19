@@ -18,8 +18,13 @@ exports.register = async (req, res, next) => {
     try {
         const { name, email, password, phone } = req.body
 
+        const user = await User.findOne({email: email});
+        if(user) {
+            res.status(400).json({ success: false, msg: "This email has already been registered"});
+            return;
+        }
         // Create user
-        const user = await User.create({
+        const newUser = await User.create({
             name,
             email,
             password,
@@ -27,7 +32,8 @@ exports.register = async (req, res, next) => {
             role: 'user'
         })
 
-        sendTokenResponse(user, 200, res);
+
+        sendTokenResponse(newUser, 200, res);
     } catch (error) {
         res.status(400).json({ success: false })
         console.log(error.stack);
