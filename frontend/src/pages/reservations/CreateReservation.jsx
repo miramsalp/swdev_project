@@ -45,6 +45,8 @@ function CreateReservation() {
       // alert(err)
       if (err?.response?.data?.message?.includes("has already made 3 reservations")) {
         alert("Cannot create reservation more than 3");
+      } else if(err?.response?.data?.message?.includes("Insufficient balance")) {
+        alert("Insufficient balance");
       } else {
         alert("An unexpected error occured");
       }
