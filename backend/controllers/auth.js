@@ -1,18 +1,8 @@
 const User = require('../models/User')
 
-/**
- * @desc    Register a new user
- * @route   POST /api/v1/auth/register
- * @access  Public
- * @param   {object} req.body - The body of the request
- * @param   {string} req.body.name - User's name
- * @param   {string} req.body.email - User's email (must be unique)
- * @param   {string} req.body.password - User's password (min 6 chars)
- * @param   {string} req.body.phone - User's phone 
- * @returns {void}
- * @success {object} 200 - { success: true, token: string, _id: string, name: string, email: string, phone: string }
- * @error   {object} 400 - { success: false } (e.g., validation error, duplicate email)
- */
+// @desc Register a new user
+// @route   POST /api/v1/auth/register
+// @access  Public
 exports.register = async (req, res, next) => {
     // res.status(200).json({success: true})
     try {
@@ -40,19 +30,9 @@ exports.register = async (req, res, next) => {
     }
 }
 
-/**
- * @desc    Login an existing user
- * @route   POST /api/v1/auth/login
- * @access  Public
- * @param   {string} req.body.email - User's registered email
- * @param   {string} req.body.password - User's password
- * @param   {object} res - Express response object
- * @returns {void}
- * @success {object} 200 - { success: true, token: string, ... (user details) }
- * @error   {object} 400 - { success: false, msg: 'Please provide an email and password' } (Missing fields)
- * @error   {object} 400 - { success: false, msg: 'Invalid credentials' } (User not found)
- * @error   {object} 401 - { success: false, msg: 'Invalid credentials' } (Password mismatch)
- */
+// @desc    Login an existing user
+// @route   POST /api/v1/auth/login
+// @access  Public
 exports.login = async (req, res, next) => {
     const { email, password } = req.body
 
@@ -84,13 +64,6 @@ exports.login = async (req, res, next) => {
     sendTokenResponse(user, 200, res);
 }
 
-/**
- * Generates a JWT, prepares cookie options, 
- * and sends a JSON response with the token and core user data.
- * @param {object} user - The Mongoose user object 
- * @param {number} statusCode - The HTTP status code to send (e.g., 200)
- * @returns {void} - Sends a JSON response.
- */
 const sendTokenResponse = (user, statusCode, res) => {
     //Create token
     const token = user.getSignedJwtToken();
@@ -113,15 +86,10 @@ const sendTokenResponse = (user, statusCode, res) => {
     })
 }
 
-/**
- * @desc    Get details of the currently authenticated user
- * @route   POST /api/v1/auth/me 
- * @access  Private 
- * @param   {object} req.user - User object attached by the 'protect' in ./middleware/auth.js
- * @returns {void}
- * @success {object} 200 - { success: true, data: User }
- * @error   {object} 404 - { success: false, msg: 'User not found' } 
- */
+
+// @desc    Get details of the currently authenticated user
+// @route   POST /api/v1/auth/me 
+// @access  Private 
 exports.getMe = async (req, res, next) => {
     const user = await User.findById(req.user.id)
 
